@@ -1,4 +1,11 @@
-export interface ListaEessprecio {
+export interface GasolineraListResponse {
+    Fecha: string
+    ListaEESSPrecio: Gasolinera[]
+    Nota: string
+    ResultadoConsulta: string
+}
+  
+export interface Gasolinera {
     "C.P.": string
     Dirección: string
     Horario: string
