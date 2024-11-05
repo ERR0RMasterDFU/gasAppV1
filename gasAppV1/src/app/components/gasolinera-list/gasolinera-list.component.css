@@ -1,0 +1,16 @@
+.bgCard{
+    background-color: #91CF39;
+    border-radius: 13px 13px 0px 0px;
+}
+
+.bgUno{
+    color: rgb(39, 145, 238);
+}
+
+.bgDos{
+    color: red;
+}
+
+.bgTres{
+    color: rgb(205, 164, 2);
+}
