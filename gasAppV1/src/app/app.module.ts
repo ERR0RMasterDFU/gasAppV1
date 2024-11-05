@@ -5,11 +5,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { GasolineraListComponent } from './components/gasolinera-list/gasolinera-list.component';
+import { AsideComponent } from './shared/aside/aside.component';
+import { HeaderComponent } from './shared/header/header.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    GasolineraListComponent
+    GasolineraListComponent,
+    AsideComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
