@@ -7,4 +7,6 @@ import { Component } from '@angular/core';
 })
 export class HeaderComponent {
 
+  imagenIzq: string = 'https://www.ariema.com/wp-content/uploads/2022/07/eco2fuel-vec.png'
+  imagenDcha: string = '';
 }
