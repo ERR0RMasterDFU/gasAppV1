@@ -1,1 +1,13 @@
-<header></header>
+<div class="container-fluid text-center my-4" style="width: 65%;">
+    <div class="row d-flex justify-content-center">
+        @for(gasolinera of gasolineraList; track gasolineraList.indexOf(gasolinera)) {
+            <div class="card" style="width: 18rem;">
+                <h1>{{gasolinera.Horario}}</h1>
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                </div>
+            </div>
+        }
+</div>
