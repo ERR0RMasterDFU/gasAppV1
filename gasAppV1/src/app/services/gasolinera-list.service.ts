@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { GasolineraListResponse } from '../models/gas.interface';
+//import { GasolineraListResponse } from '../models/gas.interface';
+import { Gasolinera } from '../models/gasoliner.dto';
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +11,8 @@ export class GasolineraListService {
 
   constructor(private http: HttpClient) {}
 
-  getGasolineraList(): Observable<GasolineraListResponse> {
-    return this.http.get<GasolineraListResponse>('https://sedeaplicaciones.minetur.gob.es/ServiciosRESTCarburantes/PreciosCarburantes/EstacionesTerrestres/');
+  getGasolineraList(): Observable<Gasolinera> {
+    return this.http.get<Gasolinera>('https://sedeaplicaciones.minetur.gob.es/ServiciosRESTCarburantes/PreciosCarburantes/EstacionesTerrestres/');
   }
 
   /*getPokemon(name: string): Observable<PokemonDetailResponse> {
