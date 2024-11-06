@@ -49,6 +49,8 @@ export class GasolineraListComponent {
         gasolineraChusquera['IDEESS'],
         gasolineraChusquera['Rótulo'],
         gasolineraChusquera['Dirección'],
+        gasolineraChusquera['Precio Biodiesel'],
+        gasolineraChusquera['Precio Bioetanol'],
         gasolineraChusquera['Precio Gasolina 95 E5'],
         gasolineraChusquera['Precio Gasoleo A'],
         gasolineraChusquera['Precio Hidrogeno'],
