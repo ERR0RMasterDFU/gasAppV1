@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { GasolineraListService } from '../../services/gasolinera-list.service';
-import { Gasolinera } from '../../models/gasoliner.dto';
+import { Gasolinera } from '../../models/gasolinera.dto';
 
 @Component({
   selector: 'app-gasolinera-list',

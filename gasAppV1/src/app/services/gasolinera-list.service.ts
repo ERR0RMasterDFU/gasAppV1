@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 //import { GasolineraListResponse } from '../models/gas.interface';
-import { Gasolinera } from '../models/gasoliner.dto';
+import { Gasolinera } from '../models/gasolinera.dto';
 
 @Injectable({
   providedIn: 'root'

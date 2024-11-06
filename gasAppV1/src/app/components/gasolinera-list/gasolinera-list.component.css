@@ -3,6 +3,14 @@
     border-radius: 13px 13px 0px 0px;
 }
 
+.textoUno {
+    width: 35%;
+}
+
+.textoDos {
+    width: 65%;
+}
+
 .bgUno{
     color: rgb(39, 145, 238);
 }
