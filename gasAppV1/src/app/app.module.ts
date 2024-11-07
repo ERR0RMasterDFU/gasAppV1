@@ -13,6 +13,8 @@ import { DropdownComponent } from './components/dropdown/dropdown.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { GoogleMapsLinkPipe } from './pipes/google-maps-link.pipe';
+import { FormsModule } from '@angular/forms';
+import { MaterialModule } from './modules/material/material.module';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,9 @@ import { GoogleMapsLinkPipe } from './pipes/google-maps-link.pipe';
     AppRoutingModule,
     NgbModule,
     MatSelectModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    FormsModule,
+    MaterialModule
   ],
   providers: [
     provideHttpClient(), 
