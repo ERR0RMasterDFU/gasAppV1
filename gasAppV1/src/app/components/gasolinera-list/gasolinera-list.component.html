@@ -37,7 +37,7 @@
                         }
                     </div>
                     <div class="align-self-end pt-3">
-                        <button type="button" class="btn btn-danger"><strong>VER UBICACIÓN</strong>&nbsp;<i class="bi bi-geo-alt-fill"></i></button>
+                        <a type="button" [href]="gasolinera.latitud | googleMapsLink: gasolinera.longitud" class="btn btn-danger"><strong>VER UBICACIÓN</strong>&nbsp;<i class="bi bi-geo-alt-fill"></i></a>
                     </div>
                 </div>
             </div>            

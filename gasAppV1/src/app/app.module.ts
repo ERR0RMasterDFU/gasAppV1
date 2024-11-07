@@ -12,6 +12,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { DropdownComponent } from './components/dropdown/dropdown.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
+import { GoogleMapsLinkPipe } from './pipes/google-maps-link.pipe';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { MatSelectModule } from '@angular/material/select';
     NavComponent,
     HeaderComponent,
     NavComponent,
-    DropdownComponent
+    DropdownComponent,
+    GoogleMapsLinkPipe
   ],
   imports: [
     BrowserModule,

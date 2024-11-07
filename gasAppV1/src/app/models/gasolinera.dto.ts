@@ -12,6 +12,8 @@ export class Gasolinera {
     public IdProvincia: string,
     public municipio: string,
     public provincia: string,
-    public postalCode: string
+    public postalCode: string,
+    public latitud: string,
+    public longitud: string
   ) {}
 }

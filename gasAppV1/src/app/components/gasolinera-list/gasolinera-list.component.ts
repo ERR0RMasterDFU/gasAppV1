@@ -12,7 +12,7 @@ export class GasolineraListComponent {
   gasolineraList: Gasolinera[] = [];
 
   constructor(private gasolineraService: GasolineraListService) { }
-  
+
   ngOnInit(): void {
     this.gasolineraService.getGasolineraList().subscribe((respuesta) => {
       // Transformo la respuesta del API en String (JSON)
@@ -58,7 +58,9 @@ export class GasolineraListComponent {
         gasolineraChusquera['IDProvincia'],
         gasolineraChusquera['Municipio'],
         gasolineraChusquera['Provincia'],
-        gasolineraChusquera['C.P.']
+        gasolineraChusquera['C.P.'],
+        gasolineraChusquera['Latitud'],
+        gasolineraChusquera['Longitud (WGS84)']
       );
 
       newArray.push(gasolinera);
