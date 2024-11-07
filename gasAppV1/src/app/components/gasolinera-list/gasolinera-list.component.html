@@ -5,7 +5,7 @@
                 <div class="text-uppercase text-center border border-3 border-bottom-3 border-black border-start-0 border-end-0 border-top-0 bgCard py-2 px-3">
                     <h3 class="m-0 py-1 text-black"><strong>{{ gasolinera.nombre }}</strong></h3>
                 </div>
-                <div class="card-body">
+                <div class="card-body d-flex flex-column" style="height: 100%;">
                     <div class="w-100 d-flex justify-content-start align-items-top">
                         <h5 class="m-0 text-start textoUno"><i class="bi bi-geo-alt-fill"></i>&nbsp;<strong>Dirección:</strong></h5>
                         <h6 class="m-0 text-start textoDos ps-1 pt-1"> {{gasolinera.direccion}}</h6>
@@ -14,7 +14,7 @@
                         <h5 class="m-0 text-start w-50"><i class="bi bi-geo-alt-fill"></i>&nbsp;<strong>Código Postal:</strong></h5>
                         <h6 class="m-0 text-start w-auto ps-1 pt-1"> {{gasolinera.postalCode}}</h6>
                     </div>
-                    <div class="w-100 pt-4 text-start ps-2">
+                    <div class="w-100 pt-4 text-start ps-2 mb-auto">
                         @if (gasolinera.priceBiodiesel == "") {
                             <h4><i class="bi bi-1-square-fill bgUno"></i>&nbsp;&nbsp;<strong>Precio Biodiesel:</strong>&nbsp;&nbsp;<i class="bi bi-x-octagon-fill bgUno"></i></h4>
                         } @else {
@@ -36,8 +36,11 @@
                             <h4><i class="bi bi-4-square-fill bgCuatro"></i>&nbsp;&nbsp;<strong>Precio Gasolina:</strong> {{gasolinera.priceDiesel}} €/l</h4>
                         }
                     </div>
+                    <div class="align-self-end pt-3">
+                        <button type="button" class="btn btn-danger"><strong>VER UBICACIÓN</strong>&nbsp;<i class="bi bi-geo-alt-fill"></i></button>
+                    </div>
                 </div>
-            </div>
+            </div>            
         }
     </div>
 </div>
