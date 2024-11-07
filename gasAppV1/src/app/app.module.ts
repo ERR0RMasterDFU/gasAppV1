@@ -13,6 +13,11 @@ import { DropdownComponent } from './components/dropdown/dropdown.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { GoogleMapsLinkPipe } from './pipes/google-maps-link.pipe';
+import { AutocompleteComponent } from './components/autocomplete/autocomplete.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { AsyncPipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -22,14 +27,21 @@ import { GoogleMapsLinkPipe } from './pipes/google-maps-link.pipe';
     HeaderComponent,
     NavComponent,
     DropdownComponent,
-    GoogleMapsLinkPipe
+    GoogleMapsLinkPipe,
+    AutocompleteComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgbModule,
     MatSelectModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    FormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatAutocompleteModule,
+    ReactiveFormsModule,
+    AsyncPipe
   ],
   providers: [
     provideHttpClient(), 

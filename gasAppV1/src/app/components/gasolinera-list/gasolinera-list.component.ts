@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { GasolineraListService } from '../../services/gasolinera-list.service';
 import { Gasolinera } from '../../models/gasolinera.dto';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-gasolinera-list',
@@ -10,19 +11,28 @@ import { Gasolinera } from '../../models/gasolinera.dto';
 export class GasolineraListComponent {
     
   gasolineraList: Gasolinera[] = [];
+  allGasolineras: Gasolinera[] = []; // Para almacenar todas las gasolineras
+  codigoPostal: string = ''; // Código postal que se obtiene desde la ruta
 
-  constructor(private gasolineraService: GasolineraListService) { }
+  constructor(private gasolineraService: GasolineraListService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+
+    // Obtener el valor del parámetro de ruta
+    this.route.params.subscribe(params => {
+      this.codigoPostal = params['codigoPostal'];
+    });
+  }
+
+  loadGasolineras() {
     this.gasolineraService.getGasolineraList().subscribe((respuesta) => {
-      // Transformo la respuesta del API en String (JSON)
       const respuestaEnString = JSON.stringify(respuesta);
       let parsedData;
       try {
-        // Transformo el String en un objeto JSON
         parsedData = JSON.parse(respuestaEnString);
         let arrayGasolineras = parsedData['ListaEESSPrecio'];
-        this.gasolineraList = this.cleanProperties(arrayGasolineras);
+        this.allGasolineras = this.cleanProperties(arrayGasolineras);
+        this.filterGasolineras();  // Filtrar las gasolineras según el código postal
       } catch (error) {
         console.error('Error parsing JSON:', error);
       }
@@ -66,6 +76,17 @@ export class GasolineraListComponent {
       newArray.push(gasolinera);
     });
     return newArray;
+  }
+
+  // Método para filtrar gasolineras por código postal
+  filterGasolineras() {
+    if (this.codigoPostal) {
+      // Si hay un código postal, filtramos las gasolineras
+      this.gasolineraList = this.allGasolineras.filter(gasolineras => gasolineras.postalCode === this.codigoPostal);
+    } else {
+      // Si no hay código postal, mostramos todas las gasolineras
+      this.gasolineraList = this.allGasolineras;
+    }
   }
 
 }

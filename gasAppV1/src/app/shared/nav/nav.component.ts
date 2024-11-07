@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-nav',
@@ -7,4 +7,16 @@ import { Component } from '@angular/core';
 })
 export class NavComponent {
 
+  @Output() codPosDelHijo = new EventEmitter<string>();
+
+  codPost: string | undefined;
+
+  // Método que maneja el evento recibido del hijo.
+  recibircodPost(codPostHijo: string) {
+    this.codPost = codPostHijo;
+  }
+
+  enviarCodPost() {
+    this.codPosDelHijo.emit(this.codPost);
+  }
 }
