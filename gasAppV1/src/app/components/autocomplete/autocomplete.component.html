@@ -1,11 +1,14 @@
+<div class="w-100 d-flex align-items-center">
 <form class="example-form">
     <mat-form-field class="example-full-width">
-        <mat-label>Seleccione un código postal</mat-label>
-        <input type="text" placeholder="Escoja uno" [(ngModel)]="codPost" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto">
-        <mat-autocomplete #auto="matAutocomplete">
-            @for (option of filteredOptions | async; track option) {
-                <mat-option [value]="option">{{option}}</mat-option>
-            }
-        </mat-autocomplete>
+      <mat-label>Código postal</mat-label>
+      <input type="text" [formControl]="myControl" placeholder="Escoja uno" matInput [matAutocomplete]="auto">
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+          {{ option }}
+        </mat-option>
+      </mat-autocomplete>
     </mat-form-field>
-</form>
+  </form>
+  <button class="btn btn-primary ps-2" (click)="onSelectPostalCode()">Filtrar</button>
+</div>

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { GasolineraListService } from '../../services/gasolinera-list.service';
 import { Gasolinera } from '../../models/gasolinera.dto';
 import { ActivatedRoute } from '@angular/router';
@@ -8,20 +8,26 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './gasolinera-list.component.html',
   styleUrl: './gasolinera-list.component.css'
 })
-export class GasolineraListComponent {
+export class GasolineraListComponent implements OnInit, OnChanges {
     
   gasolineraList: Gasolinera[] = [];
-  allGasolineras: Gasolinera[] = []; // Para almacenar todas las gasolineras
-  codigoPostal: string = ''; // Código postal que se obtiene desde la ruta
+  allGasolineras: Gasolinera[] = []; // Todas las gasolineras
+  @Input() codigoPostal:string = ''; // Código postal que se obtiene desde el padre;
 
   constructor(private gasolineraService: GasolineraListService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    console.log("Código postal recibido en hijo: ", this.codigoPostal);
+    this.loadGasolineras();
+    console.log(this.codigoPostal);
+  }
 
-    // Obtener el valor del parámetro de ruta
-    this.route.params.subscribe(params => {
-      this.codigoPostal = params['codigoPostal'];
-    });
+  ngOnChanges(changes: SimpleChanges): void {
+    // Si el código postal cambia, filtra las gasolineras
+    console.log("Código postal recibido en hijo: ", this.codigoPostal);
+    if (changes['codigoPostal']) {
+      this.filterGasolineras();
+    }
   }
 
   loadGasolineras() {
@@ -30,9 +36,9 @@ export class GasolineraListComponent {
       let parsedData;
       try {
         parsedData = JSON.parse(respuestaEnString);
-        let arrayGasolineras = parsedData['ListaEESSPrecio'];
+        let arrayGasolineras = parsedData;
         this.allGasolineras = this.cleanProperties(arrayGasolineras);
-        this.filterGasolineras();  // Filtrar las gasolineras según el código postal
+        this.filterGasolineras();  // Filtra las gasolineras según el código postal
       } catch (error) {
         console.error('Error parsing JSON:', error);
       }
@@ -42,18 +48,6 @@ export class GasolineraListComponent {
   private cleanProperties(arrayGasolineras: any) {
     let newArray: Gasolinera[] = [];
     arrayGasolineras.forEach((gasolineraChusquera: any) => {
-      const gasolineraConNombresGuenos: any = {};
-
-      // Recorro los nombres de los atributo de la
-      // gasolineraChusquera que están mal escritos
-      /*Object.keys(gasolineraChusquera).forEach((key) => {
-        // En la variable key tengo el nombre de la
-        // propiedad que estoy recorriendo
-        if (key === 'C.P.') {
-          gasolineraConNombresGuenos['postalCode'] = gasolineraChusquera[key];
-        }
-      });
-      */
      
       let gasolinera = new Gasolinera(
         gasolineraChusquera['IDEESS'],
@@ -78,15 +72,20 @@ export class GasolineraListComponent {
     return newArray;
   }
 
-  // Método para filtrar gasolineras por código postal
+  /*loadGasolineras() {
+    this.gasolineraService.getGasolineraList().subscribe((gasolineras) => {
+      this.allGasolineras = gasolineras;
+      this.filterGasolineras();  // Filtrar las gasolineras si ya tenemos el código postal
+    });
+  }*/
+
   filterGasolineras() {
+    debugger;
     if (this.codigoPostal) {
-      // Si hay un código postal, filtramos las gasolineras
-      this.gasolineraList = this.allGasolineras.filter(gasolineras => gasolineras.postalCode === this.codigoPostal);
+      this.gasolineraList = this.allGasolineras.filter(gasolinera => 
+        gasolinera.postalCode === this.codigoPostal);
     } else {
-      // Si no hay código postal, mostramos todas las gasolineras
       this.gasolineraList = this.allGasolineras;
     }
   }
-
 }

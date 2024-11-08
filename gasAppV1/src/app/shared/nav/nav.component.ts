@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-nav',
@@ -7,16 +7,23 @@ import { Component, EventEmitter, Output } from '@angular/core';
 })
 export class NavComponent {
 
-  @Output() codPosDelHijo = new EventEmitter<string>();
-
-  codPost: string | undefined;
+  @Output() codPosElegidoNav = new EventEmitter<string>();
+  codPostNav: string | undefined; 
 
   // Método que maneja el evento recibido del hijo.
-  recibircodPost(codPostHijo: string) {
-    this.codPost = codPostHijo;
+  recibircodPost(codPostInput: string) {
+    this.codPostNav = codPostInput;
+    console.log(this.codPostNav);
   }
 
   enviarCodPost() {
-    this.codPosDelHijo.emit(this.codPost);
+      if (this.codPostNav) {
+        this.codPosElegidoNav.emit(this.codPostNav);  // Emite el valor de codPostNav
+      }
+    }
+  
+  onSelectPostalCode() {
+    this.enviarCodPost();  // Llamamos a enviarCodPost para emitir el valor seleccionado
   }
+
 }
