@@ -7,23 +7,10 @@
   </mat-select>
 </mat-form-field>
 
-<mat-slider
-  [min]="minPrice"
-  [max]="maxPrice"
-  [(ngModel)]="selectedMinPrice"
-  [disabled]="fuelType === ''"
-  thumbLabel
-  tickInterval="10"
-  class="mb-3">
-</mat-slider>
-
-<mat-slider
-  [min]="minPrice"
-  [max]="maxPrice"
-  [(ngModel)]="selectedMaxPrice"
-  [disabled]="fuelType === ''"
-  thumbLabel
-  tickInterval="10">
+<mat-slider [min]="selectedMinPrice" [max]="selectedMaxPrice"
+[disabled]="fuelType === ''">
+  <input value="300" matSliderStartThumb>
+  <input value="400" matSliderEndThumb>
 </mat-slider>
 
 <button class="btn btn-primary" (click)="aplicarFiltro()">Buscar</button>
