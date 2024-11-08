@@ -1,0 +1,30 @@
+<mat-form-field>
+  <mat-label>Select</mat-label>
+  <mat-select [(ngModel)]="fuelType" (selectionChange)="seleccionarFuelType($event.value)">
+    <mat-option value="Gasolina">Gasolina</mat-option>
+    <mat-option value="Diesel">Diesel</mat-option>
+    <mat-option value="Hidro">Hidrógeno</mat-option>
+  </mat-select>
+</mat-form-field>
+
+<mat-slider
+  [min]="minPrice"
+  [max]="maxPrice"
+  [(ngModel)]="selectedMinPrice"
+  [disabled]="fuelType === ''"
+  thumbLabel
+  tickInterval="10"
+  class="mb-3">
+</mat-slider>
+
+<mat-slider
+  [min]="minPrice"
+  [max]="maxPrice"
+  [(ngModel)]="selectedMaxPrice"
+  [disabled]="fuelType === ''"
+  thumbLabel
+  tickInterval="10">
+</mat-slider>
+
+<button class="btn btn-primary" (click)="aplicarFiltro()">Buscar</button>
+<button class="btn btn-light" (click)="resetFiltro()">Reset</button>

@@ -12,16 +12,11 @@ export class NavComponent {
 
   @Output() filterApplied = new EventEmitter<{ fuelType: string, minPrice: number, maxPrice: number }>();
 
-  onPriceChange() {
-    // Asegurar que minPrice no exceda maxPrice y viceversa
-    if (this.minPrice > this.maxPrice) {
-      this.minPrice = this.maxPrice;
-    } else if (this.maxPrice < this.minPrice) {
-      this.maxPrice = this.minPrice;
-    }
-  }
-
-  applyFilter() {
+  filtrarC($event: { fuelType: string, minPrice: number, maxPrice: number }) {
+    this.selectedFuelType = $event.fuelType;
+    this.minPrice = $event.minPrice;
+    this.maxPrice = $event.maxPrice;
+    
     this.filterApplied.emit({
       fuelType: this.selectedFuelType,
       minPrice: this.minPrice,

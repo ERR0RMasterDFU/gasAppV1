@@ -15,6 +15,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { GoogleMapsLinkPipe } from './pipes/google-maps-link.pipe';
 import { FormsModule } from '@angular/forms';
 import { MaterialModule } from './modules/material/material.module';
+import { FiltrarCarburanteComponent } from './components/filtrar-carburante/filtrar-carburante.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { MaterialModule } from './modules/material/material.module';
     HeaderComponent,
     NavComponent,
     DropdownComponent,
-    GoogleMapsLinkPipe
+    GoogleMapsLinkPipe,
+    FiltrarCarburanteComponent
   ],
   imports: [
     BrowserModule,
