@@ -18,6 +18,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { AsyncPipe } from '@angular/common';
+import { ScreenComponent } from './components/screen/screen.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { AsyncPipe } from '@angular/common';
     NavComponent,
     DropdownComponent,
     GoogleMapsLinkPipe,
-    AutocompleteComponent
+    AutocompleteComponent,
+    ScreenComponent
   ],
   imports: [
     BrowserModule,

@@ -14,29 +14,21 @@ import { Router } from '@angular/router';
 export class AutocompleteComponent implements OnInit {
 
   myControl = new FormControl('');
-
   options: string[] = [];
   listadoCP: PostalCode[] = [];
   filteredOptions: Observable<string[]> | undefined;
 
   @Output() codPostElegido = new EventEmitter<string>();
+ 
+  constructor(private gasolineraService: GasolineraListService){}
 
-  constructor(private gasolineraService: GasolineraListService, private router: Router){}
-
-  enviarCodPost() {
+  realizarEnvioANav() {
     if (this.myControl.value) {
-      console.log(this.myControl.value);
       this.codPostElegido.emit(this.myControl.value);  // Emite el valor de myControl
     }
   }
 
-  onSelectPostalCode() {
-    this.enviarCodPost();  // Llamamos a enviarCodPost para emitir el valor seleccionado
-  }
-
-
   ngOnInit() {
-
     this.gasolineraService.getPostalCodeList().subscribe((respuesta) => {
       this.listadoCP = respuesta;
       this.listadoCP.forEach(item => {

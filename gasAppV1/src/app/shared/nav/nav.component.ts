@@ -11,19 +11,15 @@ export class NavComponent {
   codPostNav: string | undefined; 
 
   // Método que maneja el evento recibido del hijo.
-  recibircodPost(codPostInput: string) {
-    this.codPostNav = codPostInput;
-    console.log(this.codPostNav);
+  recibircodPostAutocomplete(codPostAutocomplete: string) {
+    this.codPostNav = codPostAutocomplete;
+    this.realizarEnvioAScreen();
   }
 
-  enviarCodPost() {
-      if (this.codPostNav) {
-        this.codPosElegidoNav.emit(this.codPostNav);  // Emite el valor de codPostNav
-      }
+  realizarEnvioAScreen() {
+    if (this.codPostNav) {
+      this.codPosElegidoNav.emit(this.codPostNav);  // Emite el valor de codPostNav
     }
-  
-  onSelectPostalCode() {
-    this.enviarCodPost();  // Llamamos a enviarCodPost para emitir el valor seleccionado
   }
 
 }

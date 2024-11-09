@@ -3,12 +3,8 @@
     border-radius: 13px 13px 0px 0px;
 }
 
-.textoUno {
-    width: 35%;
-}
-
-.textoDos {
-    width: 65%;
+.textoSize {
+    font-size: 19px;
 }
 
 .bgUno{

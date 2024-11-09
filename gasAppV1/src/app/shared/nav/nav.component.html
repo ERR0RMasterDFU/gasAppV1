@@ -1,4 +1,4 @@
-<nav class="navbar sticky-top p-3 d-flex justify-content-around w-100">
+<nav class="navbar sticky-top px-3 pt-4 pb-1 d-flex justify-content-around w-100">
     <div>
         <app-dropdown></app-dropdown>
     </div>
@@ -6,7 +6,7 @@
         <app-dropdown></app-dropdown>
     </div>
     <div>
-        <app-autocomplete (codPostElegido)="recibircodPost($event)"></app-autocomplete>
+        <app-autocomplete (codPostElegido)="recibircodPostAutocomplete($event)"></app-autocomplete>
     </div>
     <div>
         <app-dropdown></app-dropdown>

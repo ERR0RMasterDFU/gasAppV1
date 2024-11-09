@@ -10,27 +10,13 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class GasolineraListComponent implements OnInit, OnChanges {
     
-  gasolineraList: Gasolinera[] = [];
+  filteredGasolineras: Gasolinera[] = [];
   allGasolineras: Gasolinera[] = []; // Todas las gasolineras
-  @Input() codigoPostal:string = ''; // Código postal que se obtiene desde el padre;
+  @Input() codigoPostal: string | undefined; // Código postal que se obtiene: GasolineraList < Screen < Nav < Autocomplete.
 
-  constructor(private gasolineraService: GasolineraListService, private route: ActivatedRoute) { }
+  constructor(private gasolineraService: GasolineraListService) { }
 
   ngOnInit(): void {
-    console.log("Código postal recibido en hijo: ", this.codigoPostal);
-    this.loadGasolineras();
-    console.log(this.codigoPostal);
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    // Si el código postal cambia, filtra las gasolineras
-    console.log("Código postal recibido en hijo: ", this.codigoPostal);
-    if (changes['codigoPostal']) {
-      this.filterGasolineras();
-    }
-  }
-
-  loadGasolineras() {
     this.gasolineraService.getGasolineraList().subscribe((respuesta) => {
       const respuestaEnString = JSON.stringify(respuesta);
       let parsedData;
@@ -38,11 +24,17 @@ export class GasolineraListComponent implements OnInit, OnChanges {
         parsedData = JSON.parse(respuestaEnString);
         let arrayGasolineras = parsedData;
         this.allGasolineras = this.cleanProperties(arrayGasolineras);
-        this.filterGasolineras();  // Filtra las gasolineras según el código postal
+        this.filteredGasolineras = this.allGasolineras;
       } catch (error) {
         console.error('Error parsing JSON:', error);
       }
     });
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['codigoPostal']) {
+      this.filterGasolinerasByPostalCode();
+    }
   }
 
   private cleanProperties(arrayGasolineras: any) {
@@ -72,20 +64,15 @@ export class GasolineraListComponent implements OnInit, OnChanges {
     return newArray;
   }
 
-  /*loadGasolineras() {
-    this.gasolineraService.getGasolineraList().subscribe((gasolineras) => {
-      this.allGasolineras = gasolineras;
-      this.filterGasolineras();  // Filtrar las gasolineras si ya tenemos el código postal
-    });
-  }*/
-
-  filterGasolineras() {
-    debugger;
-    if (this.codigoPostal) {
-      this.gasolineraList = this.allGasolineras.filter(gasolinera => 
-        gasolinera.postalCode === this.codigoPostal);
-    } else {
-      this.gasolineraList = this.allGasolineras;
+  filterGasolinerasByPostalCode() {
+    this.filteredGasolineras = [];
+    
+    if(this.codigoPostal){
+      for (let gasolinera of this.allGasolineras) {
+        if (this.codigoPostal === gasolinera.postalCode) {
+          this.filteredGasolineras.push(gasolinera);
+        }
+      }
     }
   }
 }

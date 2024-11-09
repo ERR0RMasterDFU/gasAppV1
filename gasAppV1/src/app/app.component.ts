@@ -8,13 +8,6 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'gasAppV1';
 
-  codPostDef:string = '';
-
-  recibircodPostApp(codPostNav: string) {
-    console.log("Código postal recibido en App: ", codPostNav);
-    this.codPostDef = codPostNav;
-  }
-
 }
 
 
