@@ -1,0 +1,12 @@
+<form class="w-100 d-flex align-items-center">
+    <mat-form-field class="example-full-width">
+      <mat-label>Código postal</mat-label>
+      <input type="text" [formControl]="myControl" placeholder="Introduzca uno" matInput [matAutocomplete]="auto">
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+          {{ option }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <button type="button" class="btn btn-primary mb-auto fw-bold" (click)="realizarEnvioANav()">FILTRAR</button>
+  </form>

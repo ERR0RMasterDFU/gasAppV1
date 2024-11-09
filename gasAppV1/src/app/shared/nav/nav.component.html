@@ -1,15 +1,12 @@
-<nav class="navbar sticky-top p-3 d-flex justify-content-around w-100">
+<nav class="navbar sticky-top px-3 pt-4 pb-1 d-flex justify-content-around w-100">
     <div>
-        <!--h5 class="pt-3">
-            <a class="mb-0 tipografia text-decoration-none text-light" routerLink="pokemon" routerLinkActive="active"></a>
-        </h5-->
         <app-dropdown></app-dropdown>
     </div>
     <div>
         <app-dropdown></app-dropdown>
     </div>
     <div>
-        <app-dropdown></app-dropdown>
+        <app-autocomplete (codPostElegido)="recibircodPostAutocomplete($event)"></app-autocomplete>
     </div>
     <div>
         <app-dropdown></app-dropdown>

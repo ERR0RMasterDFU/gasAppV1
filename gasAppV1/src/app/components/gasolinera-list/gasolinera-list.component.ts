@@ -1,49 +1,45 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { GasolineraListService } from '../../services/gasolinera-list.service';
 import { Gasolinera } from '../../models/gasolinera.dto';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-gasolinera-list',
   templateUrl: './gasolinera-list.component.html',
   styleUrl: './gasolinera-list.component.css'
 })
-export class GasolineraListComponent {
+export class GasolineraListComponent implements OnInit, OnChanges {
     
-  gasolineraList: Gasolinera[] = [];
+  filteredGasolineras: Gasolinera[] = [];
+  allGasolineras: Gasolinera[] = []; // Todas las gasolineras
+  @Input() codigoPostal: string | undefined; // Código postal que se obtiene: GasolineraList < Screen < Nav < Autocomplete.
 
   constructor(private gasolineraService: GasolineraListService) { }
 
   ngOnInit(): void {
     this.gasolineraService.getGasolineraList().subscribe((respuesta) => {
-      // Transformo la respuesta del API en String (JSON)
       const respuestaEnString = JSON.stringify(respuesta);
       let parsedData;
       try {
-        // Transformo el String en un objeto JSON
         parsedData = JSON.parse(respuestaEnString);
-        let arrayGasolineras = parsedData['ListaEESSPrecio'];
-        this.gasolineraList = this.cleanProperties(arrayGasolineras);
+        let arrayGasolineras = parsedData;
+        this.allGasolineras = this.cleanProperties(arrayGasolineras);
+        this.filteredGasolineras = this.allGasolineras;
       } catch (error) {
         console.error('Error parsing JSON:', error);
       }
     });
   }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['codigoPostal']) {
+      this.filterGasolinerasByPostalCode();
+    }
+  }
+
   private cleanProperties(arrayGasolineras: any) {
     let newArray: Gasolinera[] = [];
     arrayGasolineras.forEach((gasolineraChusquera: any) => {
-      const gasolineraConNombresGuenos: any = {};
-
-      // Recorro los nombres de los atributo de la
-      // gasolineraChusquera que están mal escritos
-      /*Object.keys(gasolineraChusquera).forEach((key) => {
-        // En la variable key tengo el nombre de la
-        // propiedad que estoy recorriendo
-        if (key === 'C.P.') {
-          gasolineraConNombresGuenos['postalCode'] = gasolineraChusquera[key];
-        }
-      });
-      */
      
       let gasolinera = new Gasolinera(
         gasolineraChusquera['IDEESS'],
@@ -68,4 +64,15 @@ export class GasolineraListComponent {
     return newArray;
   }
 
+  filterGasolinerasByPostalCode() {
+    this.filteredGasolineras = [];
+    
+    if(this.codigoPostal){
+      for (let gasolinera of this.allGasolineras) {
+        if (this.codigoPostal === gasolinera.postalCode) {
+          this.filteredGasolineras.push(gasolinera);
+        }
+      }
+    }
+  }
 }
