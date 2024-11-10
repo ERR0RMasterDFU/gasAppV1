@@ -1,7 +1,6 @@
 // filtrar-carburante.component.ts
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { GasolineraService } from '../../services/gasolinera.service';
-import {MatSliderModule} from '@angular/material/slider';
 
 @Component({
   selector: 'app-filtrar-carburante',
