@@ -5,6 +5,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
   templateUrl: './filtrar-ccaa.component.html',
 })
 export class FiltrarCcaaComponent {
+
   @Output() ccaaSelected = new EventEmitter<string>();
   selectedCCAA: string = ''; // Almacena el valor seleccionado
 

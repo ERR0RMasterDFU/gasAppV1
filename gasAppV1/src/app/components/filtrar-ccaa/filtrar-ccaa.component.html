@@ -22,5 +22,13 @@
       <mat-option value="19">Melilla</mat-option>
     </mat-select>
   </mat-form-field>
-  <button class="btn btn-primary" (click)="onCCAASelect(selectedCCAA)">Buscar</button>
+  
+  <form class="example-form">
+    <mat-form-field class="example-full-width">
+      <mat-label>Provincia</mat-label>
+      <input matInput placeholder="Seleccione su provincia" [disabled]="!selectedCCAA">
+    </mat-form-field>
+  
+    <button class="btn btn-primary" (click)="onCCAASelect(selectedCCAA)">Buscar</button>
+  </form>
   

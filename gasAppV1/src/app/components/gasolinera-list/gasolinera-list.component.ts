@@ -21,6 +21,8 @@ export class GasolineraListComponent implements OnInit, OnChanges {
   
   @Input() ccaaFilter: string = '';
 
+  @Input() provinceFilter: string = '';
+
   constructor(private gasolineraService: GasolineraListService) {}
 
   ngOnInit(): void {
@@ -65,26 +67,48 @@ export class GasolineraListComponent implements OnInit, OnChanges {
     if (changes['codigoPostal']) {
       this.filterGasolinerasByPostalCode();
     }
-    
+  
     if (changes['filter']) {
       this.applyFilter();
     }
-
+  
     if (changes['ccaaFilter']) {
       this.applyCcaaFilter();
     }
+  
+    if (changes['provinceFilter']) {
+      this.applyProvinceFilter(); 
+    }
   }
+  
 
   private applyCcaaFilter() {
     if (this.ccaaFilter) {
       this.gasolineraService.getGasolinerasPorCCAA(this.ccaaFilter).subscribe(filteredGasolineras => {
-        console.log('Gasolineras antes de arreglar nombres:', filteredGasolineras);
         this.filteredGasolineras = filteredGasolineras;
+        console.log('Gasolineras filtradas por CCAA:', this.filteredGasolineras);
+  
+        if (this.provinceFilter) {
+          this.applyProvinceFilter();
+        }
       });
     } else {
       this.filteredGasolineras = this.allGasolineras;
     }
   }
+  
+  
+
+  private applyProvinceFilter() {
+    if (this.provinceFilter) {
+      this.filteredGasolineras = this.filteredGasolineras.filter(gasolinera =>
+        gasolinera.provincia && gasolinera.provincia.toLowerCase().includes(this.provinceFilter.toLowerCase())
+      );
+      console.log('Gasolineras después de aplicar filtro por provincia:', this.filteredGasolineras);
+    }
+  }
+  
+  
 
   private obtenerPrecio(gasolinera: Gasolinera, fuelType: string): number {
     let precioStr: string | undefined;
