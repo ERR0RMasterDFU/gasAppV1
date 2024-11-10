@@ -7,11 +7,16 @@
   </mat-select>
 </mat-form-field>
 
-<mat-slider [min]="selectedMinPrice" [max]="selectedMaxPrice"
-[disabled]="fuelType === ''">
-  <input value="300" matSliderStartThumb>
-  <input value="400" matSliderEndThumb>
-</mat-slider>
+<div class="price-range">
+  <mat-form-field>
+    <mat-label>Precio mínimo</mat-label>
+    <input matInput type="number" step="0.01" [(ngModel)]="selectedMinPrice" [min]="minPrice" [max]="maxPrice">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Precio máximo</mat-label>
+    <input matInput type="number" step="0.01" [(ngModel)]="selectedMaxPrice" [min]="minPrice" [max]="maxPrice">
+  </mat-form-field>
+</div>
 
 <button class="btn btn-primary" (click)="aplicarFiltro()">Buscar</button>
 <button class="btn btn-light" (click)="resetFiltro()">Reset</button>

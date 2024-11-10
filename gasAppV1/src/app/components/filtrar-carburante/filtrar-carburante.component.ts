@@ -1,3 +1,4 @@
+// filtrar-carburante.component.ts
 import { Component, EventEmitter, Output } from '@angular/core';
 import { GasolineraService } from '../../services/gasolinera.service';
 
@@ -9,9 +10,9 @@ import { GasolineraService } from '../../services/gasolinera.service';
 export class FiltrarCarburanteComponent {
   fuelType: string = '';
   minPrice: number = 0;
-  maxPrice: number = 500;
+  maxPrice: number = 0;
   selectedMinPrice: number = 0;
-  selectedMaxPrice: number = 500;
+  selectedMaxPrice: number = 0;
 
   @Output() filterApplied = new EventEmitter<{ fuelType: string, minPrice: number, maxPrice: number }>();
 
@@ -32,8 +33,12 @@ export class FiltrarCarburanteComponent {
   }
 
   aplicarFiltro() {
-    this.filterApplied.emit({ fuelType: this.fuelType, minPrice: this.selectedMinPrice, maxPrice: this.selectedMaxPrice });
-  }
+    this.filterApplied.emit({
+      fuelType: this.fuelType,
+      minPrice: this.selectedMinPrice,
+      maxPrice: this.selectedMaxPrice
+    });
+  }  
 
   resetFiltro() {
     this.fuelType = '';
@@ -41,6 +46,6 @@ export class FiltrarCarburanteComponent {
     this.maxPrice = 500;
     this.selectedMinPrice = 0;
     this.selectedMaxPrice = 500;
-    this.filterApplied.emit({ fuelType: '', minPrice: 0, maxPrice: 500 });
+    this.filterApplied.emit({ fuelType: '', minPrice: 0, maxPrice: 0 });
   }
 }

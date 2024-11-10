@@ -12,7 +12,7 @@ export class GasolineraListComponent implements OnInit {
   gasolineraList: Gasolinera[] = [];
   filteredGasolineraList: Gasolinera[] = [];
 
-  @Input() filter = { fuelType: ''};
+  @Input() filter = { fuelType: '', minPrice: 0, maxPrice: 0 };
 
   constructor(private gasolineraService: GasolineraListService) {}
 
@@ -24,7 +24,7 @@ export class GasolineraListComponent implements OnInit {
         parsedData = JSON.parse(respuestaEnString);
         let arrayGasolineras = parsedData['ListaEESSPrecio'];
         this.gasolineraList = this.cleanProperties(arrayGasolineras);
-        this.applyFilter();  // Aplicamos el filtro tras cargar los datos
+        this.applyFilter(); 
       } catch (error) {
         console.error('Error parsing JSON:', error);
       }
@@ -37,22 +37,52 @@ export class GasolineraListComponent implements OnInit {
     }
   }
 
-  private applyFilter() {
+private obtenerPrecio(gasolinera: Gasolinera, fuelType: string): number {
+  let precioStr: string | undefined;
+
+  switch (fuelType) {
+    case 'Gasolina':
+      precioStr = gasolinera.price95;
+      break;
+    case 'Diesel':
+      precioStr = gasolinera.priceDiesel;
+      break;
+    case 'Hidro':
+      precioStr = gasolinera.priceHidro;
+      break;
+    default:
+      return NaN;
+  }
+
+  const precio = precioStr ? parseFloat(precioStr.replace(',', '.')) : NaN;
+  return precio;
+}
+
+private applyFilter() {
+  if (!this.filter.fuelType && this.filter.minPrice === 0 && this.filter.maxPrice === 500) {
+   
+    this.filteredGasolineraList = [...this.gasolineraList];
+  } else {
+
     this.filteredGasolineraList = this.gasolineraList.filter((gasolinera) => {
-      // Filtros según tipo de combustible
+      const precio = this.obtenerPrecio(gasolinera, this.filter.fuelType);
+
+      const withinPriceRange =
+        (this.filter.minPrice == null || (!isNaN(precio) && precio >= this.filter.minPrice)) &&
+        (this.filter.maxPrice == null || (!isNaN(precio) && precio <= this.filter.maxPrice));
+
+
       if (this.filter.fuelType) {
-        switch (this.filter.fuelType) {
-          case 'Gasolina':
-            return gasolinera.price95 !== '';
-          case 'Diesel':
-            return gasolinera.priceDiesel !== '';
-          case 'Hidro':
-            return gasolinera.priceHidro !== '';
-        }
+        return !isNaN(precio) && withinPriceRange;
       }
-      return true; // Sin filtro de tipo de combustible
+      return withinPriceRange;
     });
   }
+}
+
+
+
+  
 
   private cleanProperties(arrayGasolineras: any): Gasolinera[] {
     return arrayGasolineras.map((gasolineraChusquera: any) => {
