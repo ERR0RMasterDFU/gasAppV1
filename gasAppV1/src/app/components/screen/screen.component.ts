@@ -8,15 +8,12 @@ import { Component } from '@angular/core';
 export class ScreenComponent {
  
   // VARIABLES FC
-  //filtro = { fuelType: '' };   
   filtro = { fuelType: '', minPrice: 0, maxPrice: 0 };        
 
   // VARIABLES FCP
   codPostDef: string | undefined;   
 
   // MÉTODOS FC
-  //  fuelType: string, minPrice: number, maxPrice: number
-  //recibirTipo($event: { fuelType: string; }) {
   recibirTipo($event: { fuelType: string, minPrice: number, maxPrice: number }) {
     this.filtro = $event;
   }

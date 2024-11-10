@@ -8,24 +8,18 @@ import { Gasolinera } from '../../models/gasolinera.dto';
   styleUrls: ['./gasolinera-list.component.css']
 })
 export class GasolineraListComponent implements OnInit, OnChanges {
-    
+  
+  // DAVID
   filteredGasolineras: Gasolinera[] = [];
   allGasolineras: Gasolinera[] = []; // Todas las gasolineras
+  @Input() codigoPostal: string | undefined; // Código postal que se obtiene: GasolineraList < Screen < Nav < Autocomplete.
   
   // DANI
   gasolineraList: Gasolinera[] = [];
   filteredGasolineraList: Gasolinera[] = [];
-  
-  @Input() codigoPostal: string | undefined; // Código postal que se obtiene: GasolineraList < Screen < Nav < Autocomplete.
-  
-  // DANI
   @Input() filter = { fuelType: '', minPrice: 0, maxPrice: 0 };
 
   constructor(private gasolineraService: GasolineraListService) {}
-
-  //let arrayGasolineras = parsedData['ListaEESSPrecio'];
-  //this.gasolineraList = this.cleanProperties(arrayGasolineras);
-
 
   ngOnInit(): void {
     this.gasolineraService.getGasolineraList().subscribe((respuesta) => {
@@ -33,7 +27,7 @@ export class GasolineraListComponent implements OnInit, OnChanges {
       let parsedData;
       try {
         parsedData = JSON.parse(respuestaEnString);
-        let arrayGasolineras = parsedData;
+        let arrayGasolineras = parsedData;  //let arrayGasolineras = parsedData['ListaEESSPrecio'];
         this.allGasolineras = this.cleanProperties(arrayGasolineras);
         this.filteredGasolineras = this.allGasolineras;
       } catch (error) {
@@ -41,10 +35,6 @@ export class GasolineraListComponent implements OnInit, OnChanges {
       }
     });
   }
-
-  /*private cleanProperties(arrayGasolineras: any): Gasolinera[] {
-    return arrayGasolineras.map((gasolineraChusquera: any) => {
-      return new Gasolinera(*/
 
   private cleanProperties(arrayGasolineras: any) {
     let newArray: Gasolinera[] = [];
@@ -87,14 +77,17 @@ export class GasolineraListComponent implements OnInit, OnChanges {
     let precioStr: string | undefined;
 
     switch (fuelType) {
-      case 'Gasolina':
+      case 'Biodiesel':
+        precioStr = gasolinera.priceBiodiesel;
+        break;
+      case 'Bioetanol':
+        precioStr = gasolinera.precioBioetanol;
+        break;
+      case 'Gasóleo':
         precioStr = gasolinera.price95;
         break;
-      case 'Diesel':
+      case 'Gasolina':
         precioStr = gasolinera.priceDiesel;
-        break;
-      case 'Hidro':
-        precioStr = gasolinera.priceHidro;
         break;
       default:
         return NaN;
@@ -123,8 +116,6 @@ export class GasolineraListComponent implements OnInit, OnChanges {
       });
     }
   }
-
-  
 
   // MÉTODOS FCP
   filterGasolinerasByPostalCode() {

@@ -4,7 +4,6 @@ import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import { GasolineraListService } from '../../services/gasolinera-list.service';
 import { PostalCode } from '../../models/cp.interface';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-autocomplete',
