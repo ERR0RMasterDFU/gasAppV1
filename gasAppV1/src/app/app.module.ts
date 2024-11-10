@@ -13,6 +13,8 @@ import { DropdownComponent } from './components/dropdown/dropdown.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { GoogleMapsLinkPipe } from './pipes/google-maps-link.pipe';
+import { MaterialModule } from './modules/material/material.module';
+import { FiltrarCarburanteComponent } from './components/filtrar-carburante/filtrar-carburante.component';
 import { AutocompleteComponent } from './components/autocomplete/autocomplete.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
@@ -29,6 +31,7 @@ import { ScreenComponent } from './components/screen/screen.component';
     NavComponent,
     DropdownComponent,
     GoogleMapsLinkPipe,
+    FiltrarCarburanteComponent
     AutocompleteComponent,
     ScreenComponent
   ],
@@ -39,7 +42,7 @@ import { ScreenComponent } from './components/screen/screen.component';
     MatSelectModule,
     MatFormFieldModule,
     FormsModule,
-    MatFormFieldModule,
+    MaterialModule
     MatInputModule,
     MatAutocompleteModule,
     ReactiveFormsModule,

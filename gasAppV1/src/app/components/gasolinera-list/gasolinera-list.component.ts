@@ -6,15 +6,23 @@ import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-gasolinera-list',
   templateUrl: './gasolinera-list.component.html',
-  styleUrl: './gasolinera-list.component.css'
+  styleUrls: ['./gasolinera-list.component.css']
 })
 export class GasolineraListComponent implements OnInit, OnChanges {
     
   filteredGasolineras: Gasolinera[] = [];
   allGasolineras: Gasolinera[] = []; // Todas las gasolineras
+  
+  // DANI
+  gasolineraList: Gasolinera[] = [];
+  filteredGasolineraList: Gasolinera[] = [];
+  
   @Input() codigoPostal: string | undefined; // Código postal que se obtiene: GasolineraList < Screen < Nav < Autocomplete.
+  
+  // DANI
+  @Input() filter = { fuelType: '', minPrice: 0, maxPrice: 0 };
 
-  constructor(private gasolineraService: GasolineraListService) { }
+  constructor(private gasolineraService: GasolineraListService) {}
 
   ngOnInit(): void {
     this.gasolineraService.getGasolineraList().subscribe((respuesta) => {
@@ -22,9 +30,15 @@ export class GasolineraListComponent implements OnInit, OnChanges {
       let parsedData;
       try {
         parsedData = JSON.parse(respuestaEnString);
+
+        //let arrayGasolineras = parsedData['ListaEESSPrecio'];
+        //this.gasolineraList = this.cleanProperties(arrayGasolineras);
+
         let arrayGasolineras = parsedData;
         this.allGasolineras = this.cleanProperties(arrayGasolineras);
         this.filteredGasolineras = this.allGasolineras;
+        this.applyFilter(); 
+        
       } catch (error) {
         console.error('Error parsing JSON:', error);
       }
@@ -35,7 +49,55 @@ export class GasolineraListComponent implements OnInit, OnChanges {
     if (changes['codigoPostal']) {
       this.filterGasolinerasByPostalCode();
     }
+    
+    if (changes['filter']) {
+      this.applyFilter();
+    }
   }
+
+  private obtenerPrecio(gasolinera: Gasolinera, fuelType: string): number {
+    let precioStr: string | undefined;
+
+    switch (fuelType) {
+      case 'Gasolina':
+        precioStr = gasolinera.price95;
+        break;
+      case 'Diesel':
+        precioStr = gasolinera.priceDiesel;
+        break;
+      case 'Hidro':
+        precioStr = gasolinera.priceHidro;
+        break;
+      default:
+        return NaN;
+    }
+
+    const precio = precioStr ? parseFloat(precioStr.replace(',', '.')) : NaN;
+    return precio;
+  }
+
+  private applyFilter() {
+    if (!this.filter.fuelType && this.filter.minPrice === 0 && this.filter.maxPrice === 500) {
+      this.filteredGasolineraList = [...this.gasolineraList];
+    } else {
+      
+      this.filteredGasolineraList = this.gasolineraList.filter((gasolinera) => {
+        const precio = this.obtenerPrecio(gasolinera, this.filter.fuelType);
+        const withinPriceRange =
+          (this.filter.minPrice == null || (!isNaN(precio) && precio >= this.filter.minPrice)) &&
+          (this.filter.maxPrice == null || (!isNaN(precio) && precio <= this.filter.maxPrice));
+
+      if (this.filter.fuelType) {
+        return !isNaN(precio) && withinPriceRange;
+      }
+      return withinPriceRange;
+      });
+    }
+  }
+
+  /*private cleanProperties(arrayGasolineras: any): Gasolinera[] {
+    return arrayGasolineras.map((gasolineraChusquera: any) => {
+      return new Gasolinera(*/
 
   private cleanProperties(arrayGasolineras: any) {
     let newArray: Gasolinera[] = [];
@@ -58,10 +120,7 @@ export class GasolineraListComponent implements OnInit, OnChanges {
         gasolineraChusquera['Latitud'],
         gasolineraChusquera['Longitud (WGS84)']
       );
-
-      newArray.push(gasolinera);
     });
-    return newArray;
   }
 
   filterGasolinerasByPostalCode() {
