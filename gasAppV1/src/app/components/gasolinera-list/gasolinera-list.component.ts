@@ -87,14 +87,17 @@ export class GasolineraListComponent implements OnInit, OnChanges {
     let precioStr: string | undefined;
 
     switch (fuelType) {
-      case 'Gasolina':
+      case 'Biodiesel':
+        precioStr = gasolinera.priceBiodiesel;
+        break;
+      case 'Bioetanol':
+        precioStr = gasolinera.precioBioetanol;
+        break;
+      case 'Gasóleo':
         precioStr = gasolinera.price95;
         break;
-      case 'Diesel':
+      case 'Gasolina':
         precioStr = gasolinera.priceDiesel;
-        break;
-      case 'Hidro':
-        precioStr = gasolinera.priceHidro;
         break;
       default:
         return NaN;
