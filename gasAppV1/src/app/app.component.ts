@@ -7,9 +7,11 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'gasAppV1';
+  
+  /* ESTO VA DENTRO DE APP SCREEN.TS 
   filtro = { fuelType: '' };
 
   recibirTipo($event: { fuelType: string; }) {
     this.filtro = $event;
-  }
+  }*/
 }

@@ -1,4 +1,4 @@
-/*export interface GasolineraListResponse {
+export interface GasolineraListResponse {
     Fecha: string
     ListaEESSPrecio: Gasolinera[]
     Nota: string
@@ -38,4 +38,4 @@ export interface Gasolinera {
     IDMunicipio: string
     IDProvincia: string
     IDCCAA: string
-}*/
+}
