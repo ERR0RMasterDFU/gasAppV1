@@ -21,6 +21,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { AsyncPipe } from '@angular/common';
 import { ScreenComponent } from './components/screen/screen.component';
+import { FiltrarCcaaComponent } from './components/filtrar-ccaa/filtrar-ccaa.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { ScreenComponent } from './components/screen/screen.component';
     GoogleMapsLinkPipe,
     FiltrarCarburanteComponent,
     AutocompleteComponent,
-    ScreenComponent
+    ScreenComponent,
+    FiltrarCcaaComponent
   ],
   imports: [
     BrowserModule,

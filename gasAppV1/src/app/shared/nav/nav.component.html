@@ -1,13 +1,12 @@
-<!--app-filtrar-carburante (filterApplied)="filtrarC($event)"></app-filtrar-carburante-->
 <nav class="navbar sticky-top px-3 pt-4 pb-1 d-flex justify-content-around w-100">
     <div>
         <app-filtrar-carburante (filterApplied)="filtrarC($event)"></app-filtrar-carburante>
     </div>
     <div>
-        <app-dropdown></app-dropdown>
+        <app-autocomplete (codPostElegido)="recibircodPostAutocomplete($event)"></app-autocomplete>
     </div>
     <div>
-        <app-autocomplete (codPostElegido)="recibircodPostAutocomplete($event)"></app-autocomplete>
+        <app-filtrar-ccaa (ccaaSelected)="onCCAASelected($event)"></app-filtrar-ccaa>
     </div>
     <div>
         <app-dropdown></app-dropdown>

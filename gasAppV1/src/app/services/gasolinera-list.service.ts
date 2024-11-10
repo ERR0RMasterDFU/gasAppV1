@@ -23,6 +23,17 @@ export class GasolineraListService {
     return this.http.get<PostalCode[]>('http://localhost:3000/code-list');
   }
 
+  getGasolinerasPorCCAA(idCCAA: string): Observable<Gasolinera[]> {
+    const url = `https://sedeaplicaciones.minetur.gob.es/ServiciosRESTCarburantes/PreciosCarburantes/EstacionesTerrestres/FiltroCCAA/${idCCAA}`;
+    return this.http.get<any>(url).pipe(
+      map((response) => this.cleanProperties(response.ListaEESSPrecio)),
+      catchError((error) => {
+        console.error('Error al obtener las gasolineras por CCAA:', error);
+        return of([]);
+      })
+    );
+  }
+
     /*.pipe(
       map(response => {
         console.log('Respuesta de la API:', response);
@@ -39,7 +50,7 @@ export class GasolineraListService {
         return of([]);  // Retorna un array vacío en caso de error
       })
     );
-  }
+  }*/
 
   private cleanProperties(arrayGasolineras: any[]): Gasolinera[] {  // Limpia y mapea los datos para que sean correctos.
     return arrayGasolineras.map(gasolineraChusquera => {
@@ -61,7 +72,7 @@ export class GasolineraListService {
         gasolineraChusquera['Longitud (WGS84)']
       );
     });
-  }*/
+  }
 
   /*getGasolineraList(): Observable<Gasolinera[]> {
     //return this.http.get<Gasolinera>('https://sedeaplicaciones.minetur.gob.es/ServiciosRESTCarburantes/PreciosCarburantes/EstacionesTerrestres/');

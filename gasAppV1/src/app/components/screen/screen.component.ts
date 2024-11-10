@@ -14,6 +14,8 @@ export class ScreenComponent {
   // VARIABLES FCP
   codPostDef: string | undefined;   
 
+  selectedCCAA: string | null = null;
+
   // MÉTODOS FC
   //  fuelType: string, minPrice: number, maxPrice: number
   //recibirTipo($event: { fuelType: string; }) {
@@ -25,4 +27,9 @@ export class ScreenComponent {
   recibircodPostNav(codPostNav: string) {
     this.codPostDef = codPostNav;
   }
+
+  onCCAASelected(ccaaId: string) {
+    this.selectedCCAA = ccaaId;
+  }
+
 }

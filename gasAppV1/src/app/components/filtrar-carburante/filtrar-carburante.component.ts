@@ -43,9 +43,9 @@ export class FiltrarCarburanteComponent {
   resetFiltro() {
     this.fuelType = '';
     this.minPrice = 0;
-    this.maxPrice = 500;
+    this.maxPrice = 0;
     this.selectedMinPrice = 0;
-    this.selectedMaxPrice = 500;
+    this.selectedMaxPrice = 0;
     this.filterApplied.emit({ fuelType: '', minPrice: 0, maxPrice: 0 });
   }
 }
