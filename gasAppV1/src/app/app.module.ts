@@ -31,7 +31,7 @@ import { ScreenComponent } from './components/screen/screen.component';
     NavComponent,
     DropdownComponent,
     GoogleMapsLinkPipe,
-    FiltrarCarburanteComponent
+    FiltrarCarburanteComponent,
     AutocompleteComponent,
     ScreenComponent
   ],
@@ -42,7 +42,7 @@ import { ScreenComponent } from './components/screen/screen.component';
     MatSelectModule,
     MatFormFieldModule,
     FormsModule,
-    MaterialModule
+    MaterialModule,
     MatInputModule,
     MatAutocompleteModule,
     ReactiveFormsModule,

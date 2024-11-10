@@ -10,14 +10,14 @@ export class NavComponent {
   minPrice: number = 0;
   maxPrice: number = 200;
 
-  // VARIABLES Y EVENTOS DE FILTRO PRECIO
+  // VARIABLES FP
   @Output() filterApplied = new EventEmitter<{ fuelType: string, minPrice: number, maxPrice: number }>();
 
-  // VARIABLES Y EVENTOS DE FILTRO CÓDIGO POSTAL
+  // VARIABLES FCP
   @Output() codPosElegidoNav = new EventEmitter<string>();
   codPostNav: string | undefined; 
 
-  // MÉTODOS DE FILTRO PRECIO
+  // MÉTODOS FP
   filtrarC($event: { fuelType: string, minPrice: number, maxPrice: number }) {
     this.selectedFuelType = $event.fuelType;
     this.minPrice = $event.minPrice;
@@ -30,8 +30,7 @@ export class NavComponent {
     });
   }
 
-  // MÉTODOS DE FILTRO CÓDIGO POSTAL
-  // Método que maneja el evento recibido del hijo.
+  // MÉTODOS FCP
   recibircodPostAutocomplete(codPostAutocomplete: string) {
     this.codPostNav = codPostAutocomplete;
     this.realizarEnvioAScreen();

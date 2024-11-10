@@ -1,7 +1,6 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { GasolineraListService } from '../../services/gasolinera-list.service';
 import { Gasolinera } from '../../models/gasolinera.dto';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-gasolinera-list',
@@ -24,25 +23,53 @@ export class GasolineraListComponent implements OnInit, OnChanges {
 
   constructor(private gasolineraService: GasolineraListService) {}
 
+  //let arrayGasolineras = parsedData['ListaEESSPrecio'];
+  //this.gasolineraList = this.cleanProperties(arrayGasolineras);
+
+
   ngOnInit(): void {
     this.gasolineraService.getGasolineraList().subscribe((respuesta) => {
       const respuestaEnString = JSON.stringify(respuesta);
       let parsedData;
       try {
         parsedData = JSON.parse(respuestaEnString);
-
-        //let arrayGasolineras = parsedData['ListaEESSPrecio'];
-        //this.gasolineraList = this.cleanProperties(arrayGasolineras);
-
         let arrayGasolineras = parsedData;
         this.allGasolineras = this.cleanProperties(arrayGasolineras);
         this.filteredGasolineras = this.allGasolineras;
-        this.applyFilter(); 
-        
       } catch (error) {
         console.error('Error parsing JSON:', error);
       }
     });
+  }
+
+  /*private cleanProperties(arrayGasolineras: any): Gasolinera[] {
+    return arrayGasolineras.map((gasolineraChusquera: any) => {
+      return new Gasolinera(*/
+
+  private cleanProperties(arrayGasolineras: any) {
+    let newArray: Gasolinera[] = [];
+    arrayGasolineras.forEach((gasolineraChusquera: any) => {
+      
+      let gasolinera = new Gasolinera(
+        gasolineraChusquera['IDEESS'],
+        gasolineraChusquera['Rótulo'],
+        gasolineraChusquera['Dirección'],
+        gasolineraChusquera['Precio Biodiesel'],
+        gasolineraChusquera['Precio Bioetanol'],
+        gasolineraChusquera['Precio Gasolina 95 E5'],
+        gasolineraChusquera['Precio Gasoleo A'],
+        gasolineraChusquera['Precio Hidrogeno'],
+        gasolineraChusquera['IDMunicipio'],
+        gasolineraChusquera['IDProvincia'],
+        gasolineraChusquera['Municipio'],
+        gasolineraChusquera['Provincia'],
+        gasolineraChusquera['C.P.'],
+        gasolineraChusquera['Latitud'],
+        gasolineraChusquera['Longitud (WGS84)']
+      );
+      newArray.push(gasolinera);
+    });
+    return newArray;
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -55,6 +82,7 @@ export class GasolineraListComponent implements OnInit, OnChanges {
     }
   }
 
+  // MÉTODOS FP
   private obtenerPrecio(gasolinera: Gasolinera, fuelType: string): number {
     let precioStr: string | undefined;
 
@@ -76,12 +104,13 @@ export class GasolineraListComponent implements OnInit, OnChanges {
     return precio;
   }
 
+  // MÉTODOS FC Y FP
   private applyFilter() {
     if (!this.filter.fuelType && this.filter.minPrice === 0 && this.filter.maxPrice === 500) {
-      this.filteredGasolineraList = [...this.gasolineraList];
+      this.filteredGasolineras = [...this.allGasolineras];
     } else {
       
-      this.filteredGasolineraList = this.gasolineraList.filter((gasolinera) => {
+      this.filteredGasolineras = this.allGasolineras.filter((gasolinera) => {
         const precio = this.obtenerPrecio(gasolinera, this.filter.fuelType);
         const withinPriceRange =
           (this.filter.minPrice == null || (!isNaN(precio) && precio >= this.filter.minPrice)) &&
@@ -95,37 +124,12 @@ export class GasolineraListComponent implements OnInit, OnChanges {
     }
   }
 
-  /*private cleanProperties(arrayGasolineras: any): Gasolinera[] {
-    return arrayGasolineras.map((gasolineraChusquera: any) => {
-      return new Gasolinera(*/
+  
 
-  private cleanProperties(arrayGasolineras: any) {
-    let newArray: Gasolinera[] = [];
-    arrayGasolineras.forEach((gasolineraChusquera: any) => {
-     
-      let gasolinera = new Gasolinera(
-        gasolineraChusquera['IDEESS'],
-        gasolineraChusquera['Rótulo'],
-        gasolineraChusquera['Dirección'],
-        gasolineraChusquera['Precio Biodiesel'],
-        gasolineraChusquera['Precio Bioetanol'],
-        gasolineraChusquera['Precio Gasolina 95 E5'],
-        gasolineraChusquera['Precio Gasoleo A'],
-        gasolineraChusquera['Precio Hidrogeno'],
-        gasolineraChusquera['IDMunicipio'],
-        gasolineraChusquera['IDProvincia'],
-        gasolineraChusquera['Municipio'],
-        gasolineraChusquera['Provincia'],
-        gasolineraChusquera['C.P.'],
-        gasolineraChusquera['Latitud'],
-        gasolineraChusquera['Longitud (WGS84)']
-      );
-    });
-  }
-
+  // MÉTODOS FCP
   filterGasolinerasByPostalCode() {
     this.filteredGasolineras = [];
-    
+
     if(this.codigoPostal){
       for (let gasolinera of this.allGasolineras) {
         if (this.codigoPostal === gasolinera.postalCode) {
