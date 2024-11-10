@@ -12,7 +12,7 @@ export class GasolineraListService {
   constructor(private http: HttpClient) {}
 
   getGasolineraList() {
-    return this.http.get('http://localhost:3000/ListaEESSPrecio'); 
+    return this.http.get('https://sedeaplicaciones.minetur.gob.es/ServiciosRESTCarburantes/PreciosCarburantes/EstacionesTerrestres/'); 
   }
 
   /*getGasolineraList(): Observable<Gasolinera> {

@@ -15,11 +15,10 @@ export class GasolineraListComponent implements OnInit, OnChanges {
   gasolineraList: Gasolinera[] = [];
   filteredGasolineraList: Gasolinera[] = [];
   
-  @Input() codigoPostal: string | undefined; // Código postal que se obtiene: GasolineraList < Screen < Nav < Autocomplete.
+  @Input() codigoPostal: string | undefined;
   
   @Input() filter = { fuelType: '', minPrice: 0, maxPrice: 0 };
   
-  // Nueva propiedad para el filtro de comunidad autónoma
   @Input() ccaaFilter: string = '';
 
   constructor(private gasolineraService: GasolineraListService) {}
@@ -30,19 +29,19 @@ export class GasolineraListComponent implements OnInit, OnChanges {
       let parsedData;
       try {
         parsedData = JSON.parse(respuestaEnString);
-        let arrayGasolineras = parsedData;
+        let arrayGasolineras = parsedData['ListaEESSPrecio'];
         this.allGasolineras = this.cleanProperties(arrayGasolineras);
         this.filteredGasolineras = this.allGasolineras;
+        console.log('Gasolineras:', this.filteredGasolineras);
       } catch (error) {
         console.error('Error parsing JSON:', error);
       }
     });
   }
 
-  private cleanProperties(arrayGasolineras: any) {
-    let newArray: Gasolinera[] = [];
-    arrayGasolineras.forEach((gasolineraChusquera: any) => {
-      let gasolinera = new Gasolinera(
+  private cleanProperties(arrayGasolineras: any[]): Gasolinera[] {
+    return arrayGasolineras.map(gasolineraChusquera => {
+      return new Gasolinera(
         gasolineraChusquera['IDEESS'],
         gasolineraChusquera['Rótulo'],
         gasolineraChusquera['Dirección'],
@@ -55,13 +54,11 @@ export class GasolineraListComponent implements OnInit, OnChanges {
         gasolineraChusquera['IDProvincia'],
         gasolineraChusquera['Municipio'],
         gasolineraChusquera['Provincia'],
-        gasolineraChusquera['C.P.'],
+        gasolineraChusquera['C.P.'], 
         gasolineraChusquera['Latitud'],
         gasolineraChusquera['Longitud (WGS84)']
       );
-      newArray.push(gasolinera);
     });
-    return newArray;
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -78,18 +75,17 @@ export class GasolineraListComponent implements OnInit, OnChanges {
     }
   }
 
-  // Filtrado por comunidad autónoma
   private applyCcaaFilter() {
     if (this.ccaaFilter) {
       this.gasolineraService.getGasolinerasPorCCAA(this.ccaaFilter).subscribe(filteredGasolineras => {
-        this.filteredGasolineras = this.cleanProperties(filteredGasolineras);
+        console.log('Gasolineras antes de arreglar nombres:', filteredGasolineras);
+        this.filteredGasolineras = filteredGasolineras;
       });
     } else {
       this.filteredGasolineras = this.allGasolineras;
     }
   }
 
-  // Obtención del precio según el tipo de combustible
   private obtenerPrecio(gasolinera: Gasolinera, fuelType: string): number {
     let precioStr: string | undefined;
 
@@ -111,7 +107,6 @@ export class GasolineraListComponent implements OnInit, OnChanges {
     return precio;
   }
 
-  // Aplicación del filtro de tipo de combustible y rango de precios
   private applyFilter() {
     if (!this.filter.fuelType && this.filter.minPrice === 0 && this.filter.maxPrice === 500) {
       this.filteredGasolineras = [...this.allGasolineras];
@@ -130,7 +125,6 @@ export class GasolineraListComponent implements OnInit, OnChanges {
     }
   }
 
-  // Filtrado por código postal
   private filterGasolinerasByPostalCode() {
     this.filteredGasolineras = [];
 
