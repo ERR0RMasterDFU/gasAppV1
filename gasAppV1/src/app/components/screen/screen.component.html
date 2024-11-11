@@ -1,7 +1,5 @@
 <app-header></app-header>
 <app-nav (filterApplied)="recibirTipo($event)" (codPosElegidoNav)="recibircodPostNav($event)" (ccaaSelected)="onCCAASelected($event)"></app-nav>
-
-
 <app-gasolinera-list 
   [filter]="filtro" 
   [codigoPostal]="codPostDef" 

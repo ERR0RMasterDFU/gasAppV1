@@ -7,21 +7,24 @@ import { Gasolinera } from '../../models/gasolinera.dto';
   templateUrl: './gasolinera-list.component.html',
   styleUrls: ['./gasolinera-list.component.css']
 })
-export class GasolineraListComponent implements OnInit, OnChanges {
-
+export class GasolineraListComponent implements OnInit, OnChanges 
+  
+  // DAVID
   filteredGasolineras: Gasolinera[] = [];
   allGasolineras: Gasolinera[] = []; // Todas las gasolineras
+  @Input() codigoPostal: string | undefined; // Código postal que se obtiene: GasolineraList < Screen < Nav < Autocomplete.
   
+  // DANI
   gasolineraList: Gasolinera[] = [];
   filteredGasolineraList: Gasolinera[] = [];
-  
-  @Input() codigoPostal: string | undefined;
   
   @Input() filter = { fuelType: '', minPrice: 0, maxPrice: 0 };
   
   @Input() ccaaFilter: string = '';
 
+
   @Input() provinceFilter: string = '';
+
 
   constructor(private gasolineraService: GasolineraListService) {}
 
@@ -32,6 +35,8 @@ export class GasolineraListComponent implements OnInit, OnChanges {
       try {
         parsedData = JSON.parse(respuestaEnString);
         let arrayGasolineras = parsedData['ListaEESSPrecio'];
+
+        //let arrayGasolineras = parsedData;  //let arrayGasolineras = parsedData['ListaEESSPrecio'];
         this.allGasolineras = this.cleanProperties(arrayGasolineras);
         this.filteredGasolineras = this.allGasolineras;
         console.log('Gasolineras:', this.filteredGasolineras);
@@ -41,9 +46,16 @@ export class GasolineraListComponent implements OnInit, OnChanges {
     });
   }
 
-  private cleanProperties(arrayGasolineras: any[]): Gasolinera[] {
+
+  /*private cleanProperties(arrayGasolineras: any[]): Gasolinera[] {
     return arrayGasolineras.map(gasolineraChusquera => {
-      return new Gasolinera(
+      return new Gasolinera(*/
+
+  private cleanProperties(arrayGasolineras: any) {
+    let newArray: Gasolinera[] = [];
+    arrayGasolineras.forEach((gasolineraChusquera: any) => {
+      
+      let gasolinera = new Gasolinera(
         gasolineraChusquera['IDEESS'],
         gasolineraChusquera['Rótulo'],
         gasolineraChusquera['Dirección'],
@@ -114,14 +126,17 @@ export class GasolineraListComponent implements OnInit, OnChanges {
     let precioStr: string | undefined;
 
     switch (fuelType) {
-      case 'Gasolina':
+      case 'Biodiesel':
+        precioStr = gasolinera.priceBiodiesel;
+        break;
+      case 'Bioetanol':
+        precioStr = gasolinera.precioBioetanol;
+        break;
+      case 'Gasóleo':
         precioStr = gasolinera.price95;
         break;
-      case 'Diesel':
+      case 'Gasolina':
         precioStr = gasolinera.priceDiesel;
-        break;
-      case 'Hidro':
-        precioStr = gasolinera.priceHidro;
         break;
       default:
         return NaN;
@@ -149,7 +164,9 @@ export class GasolineraListComponent implements OnInit, OnChanges {
     }
   }
 
-  private filterGasolinerasByPostalCode() {
+
+  // MÉTODOS FCP
+  filterGasolinerasByPostalCode() {
     this.filteredGasolineras = [];
 
     if (this.codigoPostal) {

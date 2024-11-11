@@ -8,7 +8,6 @@ import { Component } from '@angular/core';
 export class ScreenComponent {
  
   // VARIABLES FC
-  //filtro = { fuelType: '' };   
   filtro = { fuelType: '', minPrice: 0, maxPrice: 0 };        
 
   // VARIABLES FCP
@@ -17,8 +16,6 @@ export class ScreenComponent {
   selectedCCAA: string | null = null;
 
   // MÉTODOS FC
-  //  fuelType: string, minPrice: number, maxPrice: number
-  //recibirTipo($event: { fuelType: string; }) {
   recibirTipo($event: { fuelType: string, minPrice: number, maxPrice: number }) {
     this.filtro = $event;
   }

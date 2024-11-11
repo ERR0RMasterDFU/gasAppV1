@@ -1,6 +1,5 @@
 <div class="container-fluid text-center my-5">
     <div class="row d-flex justify-content-center">
-       <!--@for(gasolinera of filteredGasolineraList; track gasolineraList.indexOf(gasolinera)) {-->
         @for(gasolinera of filteredGasolineras; track filteredGasolineras.indexOf(gasolinera)) {
             <div class="card border-3 rounded-4 border-black p-0 mx-2 mb-4" style="width: 23rem;">
                 <div class="text-uppercase text-center border border-3 border-bottom-3 border-black border-start-0 border-end-0 border-top-0 bgCard py-2 px-3">
@@ -13,23 +12,34 @@
                     </div>
                     <div class="w-100 pt-4 text-start ps-2 mb-auto">
                         @if (filter.fuelType == '') {
-                            @if (gasolinera.priceHidro == "") {
-                                <h4><i class="bi bi-1-square-fill bgUno"></i>&nbsp;&nbsp;<strong>Precio Hidrógeno:</strong>&nbsp;&nbsp;<i class="bi bi-x-octagon-fill bgUno"></i></h4>
+                            @if (gasolinera.priceBiodiesel == "") {
+                                <h4><i class="bi bi-1-square-fill bgUno"></i>&nbsp;&nbsp;<strong>Precio Biodiesel:</strong>&nbsp;&nbsp;<i class="bi bi-x-octagon-fill bgUno"></i></h4>
                             } @else {
-                                <h4><i class="bi bi-1-square-fill bgUno"></i>&nbsp;&nbsp;<strong>Precio Hidrógeno:</strong> {{gasolinera.priceBiodiesel}} €/l</h4>
+                                <h4><i class="bi bi-1-square-fill bgUno"></i>&nbsp;&nbsp;<strong>Precio Biodiesel:</strong> {{gasolinera.priceBiodiesel}} €/l</h4>
                             }
-                            @if (gasolinera.price95 !== '') {
-                                <h4><i class="bi bi-2-square-fill bgDos"></i>&nbsp;&nbsp;<strong>Precio Gasolina:</strong> {{gasolinera.price95}} €/l</h4>
+                            @if (gasolinera.precioBioetanol == "") {
+                                <h4><i class="bi bi-2-square-fill bgDos"></i>&nbsp;&nbsp;<strong>Precio Bioetanol:</strong>&nbsp;&nbsp;<i class="bi bi-x-octagon-fill bgDos"></i></h4>
+                            } @else {
+                                <h4><i class="bi bi-2-square-fill bgDos"></i>&nbsp;&nbsp;<strong>Precio Bioetanol:</strong> {{gasolinera.precioBioetanol}} €/l</h4>
                             }
-                            @if (gasolinera.priceDiesel !== '') {
-                                <h4><i class="bi bi-3-square-fill bgTres"></i>&nbsp;&nbsp;<strong>Precio Diesel:</strong> {{gasolinera.priceDiesel}} €/l</h4>
+                            @if (gasolinera.price95 == "") {
+                                <h4><i class="bi bi-3-square-fill bgTres"></i>&nbsp;&nbsp;<strong>Precio Gasóleo:</strong>&nbsp;&nbsp;<i class="bi bi-x-octagon-fill bgTres"></i></h4>
+                            } @else {
+                                <h4><i class="bi bi-3-square-fill bgTres"></i>&nbsp;&nbsp;<strong>Precio Gasóleo:</strong> {{gasolinera.price95}} €/l</h4>
                             }
-                        } @else if (filter.fuelType == 'Gasolina' && gasolinera.price95 !== '') {
-                            <h4><i class="bi bi-2-square-fill bgDos"></i>&nbsp;&nbsp;<strong>Precio Gasolina:</strong> {{gasolinera.price95}} €/l</h4>
-                        } @else if (filter.fuelType == 'Diesel' && gasolinera.priceDiesel !== '') {
-                            <h4><i class="bi bi-3-square-fill bgTres"></i>&nbsp;&nbsp;<strong>Precio Diesel:</strong> {{gasolinera.priceDiesel}} €/l</h4>
-                        } @else if (filter.fuelType == 'Hidro' && gasolinera.priceHidro !== '') {
-                            <h4><i class="bi bi-1-square-fill bgUno"></i>&nbsp;&nbsp;<strong>Precio Hidro:</strong> {{gasolinera.priceHidro}} €/l</h4>
+                            @if (gasolinera.priceDiesel == "") {
+                                <h4><i class="bi bi-4-square-fill bgCuatro"></i>&nbsp;&nbsp;<strong>Precio Gasolina:</strong>&nbsp;&nbsp;<i class="bi bi-x-octagon-fill bgCuatro"></i></h4>
+                            } @else {
+                                <h4><i class="bi bi-4-square-fill bgCuatro"></i>&nbsp;&nbsp;<strong>Precio Gasolina:</strong> {{gasolinera.priceDiesel}} €/l</h4>
+                            }
+                        } @else if (filter.fuelType == 'Biodiesel' && gasolinera.priceBiodiesel !== '') {
+                            <h4><i class="bi bi-1-square-fill bgUno"></i>&nbsp;&nbsp;<strong>Precio Biodiesel:</strong> {{gasolinera.priceBiodiesel}} €/l</h4>
+                        } @else if (filter.fuelType == 'Bioetanol' && gasolinera.precioBioetanol !== '') {
+                            <h4><i class="bi bi-2-square-fill bgDos"></i>&nbsp;&nbsp;<strong>Precio Bioetanol:</strong> {{gasolinera.precioBioetanol}} €/l</h4>
+                        } @else if (filter.fuelType == 'Gasóleo' && gasolinera.price95 !== '') {
+                            <h4><i class="bi bi-3-square-fill bgTres"></i>&nbsp;&nbsp;<strong>Precio Gasóleo:</strong> {{gasolinera.price95}} €/l</h4>
+                        } @else if (filter.fuelType == 'Gasolina' && gasolinera.priceDiesel !== '') {
+                            <h4><i class="bi bi-4-square-fill bgCuatro"></i>&nbsp;&nbsp;<strong>Precio Gasolina:</strong> {{gasolinera.priceDiesel}} €/l</h4>
                         }
                     </div>
                     <div class="align-self-end pt-3">
