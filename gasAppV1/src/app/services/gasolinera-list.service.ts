@@ -32,4 +32,28 @@ export class GasolineraListService {
     );
   }
    
+  private cleanProperties(arrayGasolineras: any) {
+    let newArray: Gasolinera[] = [];
+    arrayGasolineras.forEach((gasolineraChusquera: any) => {
+      
+      let gasolinera = new Gasolinera(
+        gasolineraChusquera['IDEESS'],
+        gasolineraChusquera['Rótulo'],
+        gasolineraChusquera['Dirección'],
+        gasolineraChusquera['Precio Biodiesel'],
+        gasolineraChusquera['Precio Bioetanol'],
+        gasolineraChusquera['Precio Gasolina 95 E5'],
+        gasolineraChusquera['Precio Gasoleo A'],
+        gasolineraChusquera['Precio Hidrogeno'],
+        gasolineraChusquera['IDMunicipio'],
+        gasolineraChusquera['IDProvincia'],
+        gasolineraChusquera['Municipio'],
+        gasolineraChusquera['Provincia'],
+        gasolineraChusquera['C.P.'], 
+        gasolineraChusquera['Latitud'],
+        gasolineraChusquera['Longitud (WGS84)']
+      );
+    });
+    return newArray;
+  }
 }

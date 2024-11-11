@@ -7,7 +7,7 @@ import { Gasolinera } from '../../models/gasolinera.dto';
   templateUrl: './gasolinera-list.component.html',
   styleUrls: ['./gasolinera-list.component.css']
 })
-export class GasolineraListComponent implements OnInit, OnChanges 
+export class GasolineraListComponent implements OnInit, OnChanges {
   
   // DAVID
   filteredGasolineras: Gasolinera[] = [];
@@ -73,6 +73,7 @@ export class GasolineraListComponent implements OnInit, OnChanges
         gasolineraChusquera['Longitud (WGS84)']
       );
     });
+    return newArray;
   }
 
   ngOnChanges(changes: SimpleChanges): void {
