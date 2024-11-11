@@ -11,7 +11,7 @@
                         <h5 class="m-0 text-start textoSize pt-3"><i class="bi bi-geo-alt-fill"></i>&nbsp;<strong>Código Postal:</strong> {{gasolinera.postalCode}}</h5>
                     </div>
                     <div class="w-100 pt-4 text-start ps-2 mb-auto">
-                        @if (filter.fuelType == '') {
+                        <!--@if (fuelType == '') {-->
                             @if (gasolinera.priceBiodiesel == "") {
                                 <h4><i class="bi bi-1-square-fill bgUno"></i>&nbsp;&nbsp;<strong>Precio Biodiesel:</strong>&nbsp;&nbsp;<i class="bi bi-x-octagon-fill bgUno"></i></h4>
                             } @else {
@@ -32,15 +32,15 @@
                             } @else {
                                 <h4><i class="bi bi-4-square-fill bgCuatro"></i>&nbsp;&nbsp;<strong>Precio Gasolina:</strong> {{gasolinera.priceDiesel}} €/l</h4>
                             }
-                        } @else if (filter.fuelType == 'Biodiesel' && gasolinera.priceBiodiesel !== '') {
+                        <!--} @else if (fuelType == 'Biodiesel' && gasolinera.priceBiodiesel !== '') {
                             <h4><i class="bi bi-1-square-fill bgUno"></i>&nbsp;&nbsp;<strong>Precio Biodiesel:</strong> {{gasolinera.priceBiodiesel}} €/l</h4>
-                        } @else if (filter.fuelType == 'Bioetanol' && gasolinera.precioBioetanol !== '') {
+                        } @else if (fuelType == 'Bioetanol' && gasolinera.precioBioetanol !== '') {
                             <h4><i class="bi bi-2-square-fill bgDos"></i>&nbsp;&nbsp;<strong>Precio Bioetanol:</strong> {{gasolinera.precioBioetanol}} €/l</h4>
-                        } @else if (filter.fuelType == 'Gasóleo' && gasolinera.price95 !== '') {
+                        } @else if (fuelType == 'Gasóleo' && gasolinera.price95 !== '') {
                             <h4><i class="bi bi-3-square-fill bgTres"></i>&nbsp;&nbsp;<strong>Precio Gasóleo:</strong> {{gasolinera.price95}} €/l</h4>
-                        } @else if (filter.fuelType == 'Gasolina' && gasolinera.priceDiesel !== '') {
+                        } @else if (fuelType == 'Gasolina' && gasolinera.priceDiesel !== '') {
                             <h4><i class="bi bi-4-square-fill bgCuatro"></i>&nbsp;&nbsp;<strong>Precio Gasolina:</strong> {{gasolinera.priceDiesel}} €/l</h4>
-                        }
+                        }-->
                     </div>
                     <div class="align-self-end pt-3">
                         <a type="button" target="_blank" [href]="gasolinera.latitud | googleMapsLink: gasolinera.longitud" class="btn btn-danger">

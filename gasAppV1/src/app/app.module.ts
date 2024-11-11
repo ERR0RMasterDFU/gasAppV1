@@ -22,6 +22,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { AsyncPipe } from '@angular/common';
 import { ScreenComponent } from './components/screen/screen.component';
 import { FiltrarCcaaComponent } from './components/filtrar-ccaa/filtrar-ccaa.component';
+import { GasolineraListService } from './services/gasolinera-list.service';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { FiltrarCcaaComponent } from './components/filtrar-ccaa/filtrar-ccaa.com
   ],
   providers: [
     provideHttpClient(), 
-    provideAnimationsAsync()],
+    provideAnimationsAsync()
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

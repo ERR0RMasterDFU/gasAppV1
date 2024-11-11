@@ -9,7 +9,7 @@ import { map } from 'rxjs/operators';
 })
 export class GasolineraService {
 
-  constructor(private http: HttpClient) {}
+  /*constructor(private http: HttpClient) {}
 
   obtenerRangoPrecios(fuelType: string): Observable<{ minPrice: number, maxPrice: number }> {
     return this.http.get<any[]>(`/api/gasolineras`) // Ajusta la URL de tu API
@@ -25,5 +25,5 @@ export class GasolineraService {
           return { minPrice, maxPrice };
         })
       );
-  }
+  }*/
 }

@@ -1,7 +1,6 @@
 <app-header></app-header>
-<app-nav (filterApplied)="recibirTipo($event)" (codPosElegidoNav)="recibircodPostNav($event)" (ccaaSelected)="onCCAASelected($event)"></app-nav>
+<app-nav (tresValoresElegidosNav)="recibirTresValoresNav($event)" (codPosElegidoNav)="recibircodPostNav($event)" (ccaaSelected)="onCCAASelected($event)"><!--(filterApplied)="recibirTipo($event)"--></app-nav>
 <app-gasolinera-list 
-  [filter]="filtro" 
-  [codigoPostal]="codPostDef" 
-  [ccaaFilter]="selectedCCAA || ''">
-</app-gasolinera-list>
+   [fuelType]="fuelTypeDef" [minPrice]="minPriceDef" [maxPrice]="maxPriceDef"
+   [codigoPostal]="codPostDef" 
+   [ccaaFilter]="selectedCCAA || ''"><!--[filter]="filtro"--></app-gasolinera-list>

@@ -9,29 +9,43 @@ import { GasolineraService } from '../../services/gasolinera.service';
 })
 export class FiltrarCarburanteComponent implements OnInit {
   fuelType: string = '';
+  //minPrice: number | undefined;
+  //maxPrice: number | undefined;
   minPrice: number = 0;
-  maxPrice: number = 0;
-  selectedMinPrice: number = 0;
-  selectedMaxPrice: number = 3;
+  maxPrice: number = 3;
   fuelList = ['Biodiesel', 'Bioetanol', 'Gasóleo', 'Gasolina'];
 
-  @Output() filterApplied = new EventEmitter<{ fuelType: string, minPrice: number, maxPrice: number }>();
+  //@Output() filterApplied = new EventEmitter<{ fuelType: string, minPrice: number, maxPrice: number }>();
+  @Output() tresValoresElegidos = new EventEmitter<{ fuelType: string, minPrice: number, maxPrice: number }>();
+
 
   constructor(private gasolineraService: GasolineraService) {}
 
   ngOnInit(): void {
-    this.resetFiltro()
+    //this.resetFiltro()
   }
 
   formatLabel(value: number): string {
     return `${value}€`;
   }
 
-  seleccionarFuelType(fuelType: string) {
-    //this.resetFiltro();
-    this.fuelType = fuelType;
-    if (fuelType) {
-      this.gasolineraService.obtenerRangoPrecios(fuelType).subscribe(rango => {
+  realizarEnvioANavDesdeInputYRange(fuelSelect: string, minPriceSelect: number, maxPriceSelect: number) {
+    this.fuelType = fuelSelect;
+    this.minPrice = minPriceSelect;
+    this.maxPrice = maxPriceSelect;
+    if(this.fuelType && this.minPrice && this.maxPrice) {
+      this.tresValoresElegidos.emit({ fuelType: this.fuelType, minPrice: this.minPrice, maxPrice: this.maxPrice });
+    }
+  }
+
+
+  /*seleccionarFuelType(fuelSelect: string, minPrice: number, maxPrice: number) {
+    this.fuelType = fuelSelect;
+    if (this.fuelType) {
+      this.selectedMinPrice = minPrice;
+      this.selectedMaxPrice = maxPrice;
+
+      /*this.gasolineraService.obtenerRangoPrecios(fuelType).subscribe(rango => {
         this.minPrice = rango.minPrice;
         this.maxPrice = rango.maxPrice;
         this.selectedMinPrice = this.minPrice;
@@ -40,9 +54,9 @@ export class FiltrarCarburanteComponent implements OnInit {
     } else {
       this.resetFiltro();
     }
-  }
+  }*/
 
-  aplicarFiltro() {
+  /*aplicarFiltro() {
     this.filterApplied.emit({
       fuelType: this.fuelType,
       minPrice: this.selectedMinPrice,
@@ -57,5 +71,5 @@ export class FiltrarCarburanteComponent implements OnInit {
     this.selectedMinPrice = 0;
     this.selectedMaxPrice = 0;
     this.filterApplied.emit({ fuelType: '', minPrice: 0, maxPrice: 0 });
-  }
+  }*/
 }

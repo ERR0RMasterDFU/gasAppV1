@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { catchError, map, Observable, of } from 'rxjs';
 import { Gasolinera } from '../models/gasolinera.dto';
 import { PostalCode } from '../models/cp.interface';
+import { GasolineraListComponent } from '../components/gasolinera-list/gasolinera-list.component';
 
 @Injectable({
   providedIn: 'root'
@@ -12,14 +13,13 @@ export class GasolineraListService {
   constructor(private http: HttpClient) {}
 
   getGasolineraList() {
-    //return this.http.get('http://localhost:3000/ListaEESSPrecio');
-    return this.http.get('https://sedeaplicaciones.minetur.gob.es/ServiciosRESTCarburantes/PreciosCarburantes/EstacionesTerrestres/'); 
+    return this.http.get('http://localhost:3000/ListaEESSPrecio');
+    //return this.http.get('https://sedeaplicaciones.minetur.gob.es/ServiciosRESTCarburantes/PreciosCarburantes/EstacionesTerrestres/'); 
   }
 
   getPostalCodeList(): Observable<PostalCode[]> {
     return this.http.get<PostalCode[]>('http://localhost:3000/code-list');
   }
-
 
   getGasolinerasPorCCAA(idCCAA: string): Observable<Gasolinera[]> {
     const url = `https://sedeaplicaciones.minetur.gob.es/ServiciosRESTCarburantes/PreciosCarburantes/EstacionesTerrestres/FiltroCCAA/${idCCAA}`;
@@ -31,11 +31,11 @@ export class GasolineraListService {
       })
     );
   }
-   
-  private cleanProperties(arrayGasolineras: any) {
+
+  cleanProperties(arrayGasolineras: any) {
     let newArray: Gasolinera[] = [];
     arrayGasolineras.forEach((gasolineraChusquera: any) => {
-      
+
       let gasolinera = new Gasolinera(
         gasolineraChusquera['IDEESS'],
         gasolineraChusquera['Rótulo'],
