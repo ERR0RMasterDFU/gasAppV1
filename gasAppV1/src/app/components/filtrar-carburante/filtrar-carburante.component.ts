@@ -22,7 +22,7 @@ export class FiltrarCarburanteComponent implements OnInit {
   constructor(private gasolineraService: GasolineraService) {}
 
   ngOnInit(): void {
-    //this.resetFiltro()
+    this.resetFiltro()
   }
 
   formatLabel(value: number): string {
@@ -62,14 +62,12 @@ export class FiltrarCarburanteComponent implements OnInit {
       minPrice: this.selectedMinPrice,
       maxPrice: this.selectedMaxPrice
     });
-  }  
+  }  */
 
   resetFiltro() {
     this.fuelType = '';
     this.minPrice = 0;
     this.maxPrice = 0;
-    this.selectedMinPrice = 0;
-    this.selectedMaxPrice = 0;
-    this.filterApplied.emit({ fuelType: '', minPrice: 0, maxPrice: 0 });
-  }*/
+    this.tresValoresElegidos.emit({ fuelType: this.fuelType, minPrice: this.minPrice, maxPrice: this.maxPrice });
+  }
 }
