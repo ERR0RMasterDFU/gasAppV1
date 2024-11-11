@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-nav',
@@ -6,31 +6,22 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   styleUrls: ['./nav.component.css']
 })
 export class NavComponent {
+  @Output() filterApplied = new EventEmitter<{ fuelType: string, minPrice: number, maxPrice: number }>();
+  @Output() codPosElegidoNav = new EventEmitter<string>();
+  @Output() ccaaSelected = new EventEmitter<string>();
+
   selectedFuelType: string = '';
   minPrice: number = 0;
   maxPrice: number = 200;
+  codPostNav: string | undefined;
 
-  // VARIABLES FP
-  @Output() filterApplied = new EventEmitter<{ fuelType: string, minPrice: number, maxPrice: number }>();
-
-  // VARIABLES FCP
-  @Output() codPosElegidoNav = new EventEmitter<string>();
-  codPostNav: string | undefined; 
-
-  // MÉTODOS FP
   filtrarC($event: { fuelType: string, minPrice: number, maxPrice: number }) {
     this.selectedFuelType = $event.fuelType;
     this.minPrice = $event.minPrice;
     this.maxPrice = $event.maxPrice;
-    
-    this.filterApplied.emit({
-      fuelType: this.selectedFuelType,
-      minPrice: this.minPrice,
-      maxPrice: this.maxPrice
-    });
+    this.filterApplied.emit({ fuelType: this.selectedFuelType, minPrice: this.minPrice, maxPrice: this.maxPrice });
   }
 
-  // MÉTODOS FCP
   recibircodPostAutocomplete(codPostAutocomplete: string) {
     this.codPostNav = codPostAutocomplete;
     this.realizarEnvioAScreen();
@@ -38,7 +29,12 @@ export class NavComponent {
 
   realizarEnvioAScreen() {
     if (this.codPostNav) {
-      this.codPosElegidoNav.emit(this.codPostNav);  // Emite el valor de codPostNav
+      this.codPosElegidoNav.emit(this.codPostNav);
     }
+  }
+
+  // Método para emitir la comunidad autónoma seleccionada
+  onCCAASelected(ccaaId: string) {
+    this.ccaaSelected.emit(ccaaId);
   }
 }

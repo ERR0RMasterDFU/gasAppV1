@@ -1,0 +1,34 @@
+<mat-form-field>
+    <mat-label>Select</mat-label>
+    <mat-select [(ngModel)]="selectedCCAA">
+      <mat-option value="01">Andalucía</mat-option>
+      <mat-option value="02">Aragón</mat-option>
+      <mat-option value="03">Asturias</mat-option>
+      <mat-option value="04">Baleares</mat-option>
+      <mat-option value="05">Canarias</mat-option>
+      <mat-option value="06">Cantabria</mat-option>
+      <mat-option value="07">Castilla-La Mancha</mat-option>
+      <mat-option value="08">Castilla y León</mat-option>
+      <mat-option value="09">Cataluña</mat-option>
+      <mat-option value="10">Comunidad Valenciana</mat-option>
+      <mat-option value="11">Extremadura</mat-option>
+      <mat-option value="12">Galicia</mat-option>
+      <mat-option value="13">Madrid</mat-option>
+      <mat-option value="14">Murcia</mat-option>
+      <mat-option value="15">Navarra</mat-option>
+      <mat-option value="16">País Vasco</mat-option>
+      <mat-option value="17">La Rioja</mat-option>
+      <mat-option value="18">Ceuta</mat-option>
+      <mat-option value="19">Melilla</mat-option>
+    </mat-select>
+  </mat-form-field>
+  
+  <form class="example-form">
+    <mat-form-field class="example-full-width">
+      <mat-label>Provincia</mat-label>
+      <input matInput placeholder="Seleccione su provincia" [disabled]="!selectedCCAA">
+    </mat-form-field>
+  
+    <button class="btn btn-primary" (click)="onCCAASelect(selectedCCAA)">Buscar</button>
+  </form>
+  

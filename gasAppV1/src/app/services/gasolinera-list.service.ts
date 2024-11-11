@@ -12,12 +12,24 @@ export class GasolineraListService {
   constructor(private http: HttpClient) {}
 
   getGasolineraList() {
-    return this.http.get('http://localhost:3000/ListaEESSPrecio');
-    //return this.http.get('https://sedeaplicaciones.minetur.gob.es/ServiciosRESTCarburantes/PreciosCarburantes/EstacionesTerrestres/'); 
+    //return this.http.get('http://localhost:3000/ListaEESSPrecio');
+    return this.http.get('https://sedeaplicaciones.minetur.gob.es/ServiciosRESTCarburantes/PreciosCarburantes/EstacionesTerrestres/'); 
   }
 
   getPostalCodeList(): Observable<PostalCode[]> {
     return this.http.get<PostalCode[]>('http://localhost:3000/code-list');
   }
 
+
+  getGasolinerasPorCCAA(idCCAA: string): Observable<Gasolinera[]> {
+    const url = `https://sedeaplicaciones.minetur.gob.es/ServiciosRESTCarburantes/PreciosCarburantes/EstacionesTerrestres/FiltroCCAA/${idCCAA}`;
+    return this.http.get<any>(url).pipe(
+      map((response) => this.cleanProperties(response.ListaEESSPrecio)),
+      catchError((error) => {
+        console.error('Error al obtener las gasolineras por CCAA:', error);
+        return of([]);
+      })
+    );
+  }
+   
 }
