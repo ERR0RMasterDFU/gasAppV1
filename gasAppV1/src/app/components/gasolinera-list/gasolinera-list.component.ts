@@ -126,31 +126,7 @@ export class GasolineraListComponent implements OnInit, OnChanges {
     }
   }
 
-  /*private obtenerPrecio(gasolinera: Gasolinera, fuelType: string): number {
-    let precioStr: string | undefined;
-
-    switch (fuelType) {
-      case 'Biodiesel':
-        precioStr = gasolinera.priceBiodiesel;
-        break;
-      case 'Bioetanol':
-        precioStr = gasolinera.precioBioetanol;
-        break;
-      case 'Gasóleo':
-        precioStr = gasolinera.price95;
-        break;
-      case 'Gasolina':
-        precioStr = gasolinera.priceDiesel;
-        break;
-      default:
-        return NaN;
-    }
-
-    const precio = precioStr ? parseFloat(precioStr.replace(',', '.')) : NaN;
-    return precio;
-  }
-
-  private applyFilter() {
+  /*private applyFilter() {
     if (!this.filter.fuelType && this.filter.minPrice === 0 && this.filter.maxPrice === 500) {
       this.filteredGasolineras = [...this.allGasolineras];
     } else {
@@ -216,4 +192,5 @@ export class GasolineraListComponent implements OnInit, OnChanges {
       }
     }
   }
+
 }

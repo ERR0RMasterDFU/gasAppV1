@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
+import { GasolineraListComponent } from '../../components/gasolinera-list/gasolinera-list.component';
 
 @Component({
   selector: 'app-nav',
